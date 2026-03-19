@@ -2,6 +2,9 @@ import { Point } from './common';
 
 // ─── Shared domain models ─────────────────────────────────────────────────────
 
+export type RoomType = 'PUBLIC' | 'PRIVATE';
+export type HouseAccess = 'OPEN' | 'PASSWORD' | 'CLOSED';
+
 /** Authenticated user info (returned by the server after token validation) */
 export interface UserInfo {
   id: string;
@@ -26,7 +29,7 @@ export interface RoomUser {
   y: number;
 }
 
-/** Summary of a room (used in lobby listings) */
+/** Summary of a public room (used in the public lobby listing) */
 export interface RoomInfo {
   id: string;
   name: string;
@@ -34,6 +37,28 @@ export interface RoomInfo {
   maxUsers: number;
   ownerIds: string[];
   editorIds: string[];
+  type?: RoomType;
+}
+
+/** Summary of a private house (used in the private lobby section) */
+export interface HouseInfo {
+  id: number;
+  name: string;
+  type: 'PRIVATE';
+  access: HouseAccess;
+  ownerUsername: string | null;
+  hasPassword: boolean;
+  schemaId: number | null;
+  schemaName: string | null;
+  maxUsers: number;
+  userCount?: number;
+}
+
+/** A house schema (admin-defined template) */
+export interface HouseSchema {
+  id: number;
+  name: string;
+  description: string | null;
 }
 
 /** Full room state sent to a client on join */

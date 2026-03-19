@@ -2,36 +2,55 @@ import { Point } from './common';
 import { AvatarOptions, FurnitureState, RoomState, ChatMessage } from './models';
 import { RoomPermission } from './permissions';
 
-// ─── Socket event names ───────────────────────────────────────────────────────
+// ─── STOMP destinations ───────────────────────────────────────────────────────
 
-/** All Socket.IO event names as a const enum for type-safe emit/on calls */
-export const SocketEvent = {
-  // ── Client → Server ────────────────────────────────────────────────────────
-  JOIN_ROOM:         'join_room',
-  LEAVE_ROOM:        'leave_room',
-  AVATAR_MOVE:       'avatar_move',
-  AVATAR_SAY:        'avatar_say',
-  FURNITURE_MOVE:    'furniture_move',
-  FURNITURE_PLACE:   'furniture_place',
-  FURNITURE_REMOVE:  'furniture_remove',
-  FURNITURE_ROTATE:  'furniture_rotate',
-  CHAT_MESSAGE:      'chat_message',
+/**
+ * All STOMP destinations as a const object.
+ *
+ * Client → Server destinations use the application prefix `/app`.
+ * Server → Client destinations:
+ *   - Room broadcasts: `/topic/room/{roomId}/<event>`  (use roomTopic())
+ *   - Private/user:   `/user/queue/<event>`
+ */
+export const StompDest = {
+  // ── Client → Server (/app prefix) ─────────────────────────────────────────
+  JOIN_ROOM:         '/app/join',
+  LEAVE_ROOM:        '/app/leave',
+  AVATAR_MOVE:       '/app/avatar/move',
+  AVATAR_SAY:        '/app/avatar/say',
+  FURNITURE_MOVE:    '/app/furniture/move',
+  FURNITURE_PLACE:   '/app/furniture/place',
+  FURNITURE_REMOVE:  '/app/furniture/remove',
+  FURNITURE_ROTATE:  '/app/furniture/rotate',
+  CHAT_MESSAGE:      '/app/chat',
 
-  // ── Server → Client ────────────────────────────────────────────────────────
-  ROOM_STATE:              'room_state',
-  ROOM_ERROR:              'room_error',
-  USER_JOINED:             'user_joined',
-  USER_LEFT:               'user_left',
-  REMOTE_AVATAR_MOVE:      'remote_avatar_move',
-  REMOTE_AVATAR_SAY:       'remote_avatar_say',
-  REMOTE_FURNITURE_MOVE:   'remote_furniture_move',
-  REMOTE_FURNITURE_PLACE:  'remote_furniture_place',
-  REMOTE_FURNITURE_REMOVE: 'remote_furniture_remove',
-  REMOTE_FURNITURE_ROTATE: 'remote_furniture_rotate',
-  REMOTE_CHAT_MESSAGE:     'remote_chat_message',
+  // ── Server → Client: per-room topic suffix (use roomTopic()) ───────────────
+  TOPIC_JOINED:           'joined',
+  TOPIC_LEFT:             'left',
+  TOPIC_AVATAR_MOVE:      'avatar-move',
+  TOPIC_AVATAR_SAY:       'avatar-say',
+  TOPIC_FURNITURE_MOVE:   'furniture-move',
+  TOPIC_FURNITURE_PLACE:  'furniture-place',
+  TOPIC_FURNITURE_REMOVE: 'furniture-remove',
+  TOPIC_FURNITURE_ROTATE: 'furniture-rotate',
+  TOPIC_CHAT:             'chat',
+
+  // ── Server → Client: private user queue ────────────────────────────────────
+  QUEUE_STATE: '/user/queue/state',
+  QUEUE_ERROR: '/user/queue/error',
 } as const;
 
-export type SocketEventName = typeof SocketEvent[keyof typeof SocketEvent];
+export type StompDestName = typeof StompDest[keyof typeof StompDest];
+
+/** Build the full topic path for a room-scoped broadcast. */
+export function roomTopic(roomId: string, event: string): string {
+  return `/topic/room/${roomId}/${event}`;
+}
+
+// Backward-compat alias (transitional — remove once all packages migrated)
+/** @deprecated Use StompDest */
+export const SocketEvent = StompDest;
+export type SocketEventName = StompDestName;
 
 // ─── Client → Server payloads ─────────────────────────────────────────────────
 
