@@ -107,6 +107,9 @@ export interface UserJoinedPayload {
   avatarOptions: AvatarOptions;
   x: number;
   y: number;
+  gender: string | null;
+  rank: number;
+  toonizLevel: number;
 }
 
 export interface UserLeftPayload {
