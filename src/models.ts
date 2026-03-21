@@ -13,6 +13,10 @@ export interface UserInfo {
   rank: number;
   /** 0 = none, 1/2/3 */
   toonizLevel: number;
+  /** Monnaie payante (achat) — défaut 0 */
+  kreds: number;
+  /** Monnaie gratuite (jeu) — défaut 1500 */
+  pez: number;
   /** Avatar appearance options at the time of spawn */
   avatarOptions: AvatarOptions;
 }
