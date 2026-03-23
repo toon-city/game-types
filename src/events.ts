@@ -36,8 +36,9 @@ export const StompDest = {
   TOPIC_CHAT:             'chat',
 
   // ── Server → Client: private user queue ────────────────────────────────────
-  QUEUE_STATE: '/user/queue/state',
-  QUEUE_ERROR: '/user/queue/error',
+  QUEUE_STATE:  '/user/queue/state',
+  QUEUE_ERROR:  '/user/queue/error',
+  QUEUE_KICKED: '/user/queue/kicked',
 } as const;
 
 export type StompDestName = typeof StompDest[keyof typeof StompDest];

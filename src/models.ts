@@ -19,6 +19,8 @@ export interface UserInfo {
   pez: number;
   /** Avatar appearance options at the time of spawn */
   avatarOptions: AvatarOptions;
+  /** Raw JSON string of avatar options stored in DB (undefined on old sessions) */
+  avatarOptionsJson?: string;
 }
 
 /** Minimal avatar appearance description (serialisable) */
@@ -129,6 +131,54 @@ export interface FurnitureState {
   x: number;
   y: number;
   orientation: number;
+}
+
+// ─── Items & Boutiques ────────────────────────────────────────────────────────
+
+export type ItemType = 'FURNITURE' | 'CLOTHING' | 'MISC';
+export type ItemSubType =
+  | 'FLOOR' | 'WALL' | 'WALLPAPER' | 'PIECE'
+  | 'HAIRSTYLE' | 'HAT' | 'TOP' | 'BOTTOM' | 'MAKEUP' | 'OTHER';
+export type ShopIdType = 'COUPE_TIFF' | 'IKEBO' | 'VESTIS';
+export type BuyOption = 'PEZ' | 'KREDS';
+
+export interface ItemInfo {
+  id: number;
+  name: string;
+  itemType: ItemType;
+  subType: ItemSubType;
+  possessable: boolean;
+  displayImage: string | null;
+  spritePath: string | null;
+  spriteKey: string | null;
+}
+
+export interface UserItemInfo {
+  id: number | null;
+  item: ItemInfo;
+  equipped: boolean;
+  placedInRoomId: string | null;
+  acquiredAt: string | null;
+}
+
+export interface ShopItemInfo {
+  id: number;
+  item: ItemInfo;
+  pezPrice: number | null;
+  kredBonus: number;
+  kredPrice: number | null;
+  collectionId: number | null;
+  /** Stock restant (null = illimité, 0 = épuisé). */
+  stock: number | null;
+}
+
+export interface CollectionInfo {
+  id: number;
+  shopId: string;
+  name: string;
+  bannerImage: string | null;
+  sortOrder: number;
+  enabled: boolean;
 }
 
 /** A single chat message */
