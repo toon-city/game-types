@@ -1,5 +1,5 @@
 import { Point } from './common';
-import { AvatarOptions, FurnitureState, RoomState, ChatMessage } from './models';
+import { FurnitureState, RoomState, ChatMessage } from './models';
 import { RoomPermission } from './permissions';
 
 // ─── STOMP destinations ───────────────────────────────────────────────────────
@@ -18,6 +18,7 @@ export const StompDest = {
   LEAVE_ROOM:        '/app/leave',
   AVATAR_MOVE:       '/app/avatar/move',
   AVATAR_SAY:        '/app/avatar/say',
+  CLOTHING_REFRESH:  '/app/avatar/clothing/refresh',
   FURNITURE_MOVE:    '/app/furniture/move',
   FURNITURE_PLACE:   '/app/furniture/place',
   FURNITURE_REMOVE:  '/app/furniture/remove',
@@ -34,6 +35,7 @@ export const StompDest = {
   TOPIC_FURNITURE_REMOVE: 'furniture-remove',
   TOPIC_FURNITURE_ROTATE: 'furniture-rotate',
   TOPIC_CHAT:             'chat',
+  TOPIC_AVATAR_APPEARANCE: 'avatar-appearance',
 
   // ── Server → Client: private user queue ────────────────────────────────────
   QUEUE_STATE:  '/user/queue/state',
@@ -57,6 +59,7 @@ export type SocketEventName = StompDestName;
 
 export interface JoinRoomPayload {
   roomId: string;
+  direction: number;
 }
 
 export interface AvatarMovePayload {
@@ -105,9 +108,11 @@ export interface RoomErrorPayload {
 export interface UserJoinedPayload {
   userId: string;
   username: string;
-  avatarOptions: AvatarOptions;
+  skinColor: number;
+  clothing: Record<string, string>;
   x: number;
   y: number;
+  direction: number;
   gender: string | null;
   rank: number;
   toonizLevel: number;
@@ -149,3 +154,9 @@ export interface RemoteFurnitureRotatePayload {
 }
 
 export interface RemoteChatMessagePayload extends ChatMessage {}
+
+export interface AvatarAppearancePayload {
+  userId: string;
+  skinColor: number;
+  clothing: Record<string, string>;
+}

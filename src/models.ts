@@ -17,26 +17,21 @@ export interface UserInfo {
   kreds: number;
   /** Monnaie gratuite (jeu) — défaut 1500 */
   pez: number;
-  /** Avatar appearance options at the time of spawn */
-  avatarOptions: AvatarOptions;
-  /** Raw JSON string of avatar options stored in DB (undefined on old sessions) */
-  avatarOptionsJson?: string;
-}
-
-/** Minimal avatar appearance description (serialisable) */
-export interface AvatarOptions {
-  direction?: number;
-  skinColor?: number;
-  clothing?: Record<string, string>;
+  /** Couleur de peau (ex: 0xf7ceaf). */
+  skinColor: number;
 }
 
 /** A connected user inside a room */
 export interface RoomUser {
   userId: string;
   username: string;
-  avatarOptions: AvatarOptions;
+  /** Couleur de peau (ex: 0xf7ceaf). */
+  skinColor: number;
+  /** Vêtements équipés : spriteKey → spritePath (ex: { hair: "hair7" }). */
+  clothing: Record<string, string>;
   x: number;
   y: number;
+  direction: number;
   /** MALE | FEMALE | NON_BINARY | null */
   gender: string | null;
   /** 0 = user, 1 = moderator, 2 = admin */
