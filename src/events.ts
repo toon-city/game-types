@@ -17,6 +17,7 @@ export const StompDest = {
   JOIN_ROOM:         '/app/join',
   LEAVE_ROOM:        '/app/leave',
   AVATAR_MOVE:       '/app/avatar/move',
+  AVATAR_STOP:       '/app/avatar/stop',
   AVATAR_SAY:        '/app/avatar/say',
   CLOTHING_REFRESH:  '/app/avatar/clothing/refresh',
   FURNITURE_MOVE:    '/app/furniture/move',
@@ -29,6 +30,7 @@ export const StompDest = {
   TOPIC_JOINED:           'joined',
   TOPIC_LEFT:             'left',
   TOPIC_AVATAR_MOVE:      'avatar-move',
+  TOPIC_AVATAR_STOP:      'avatar-stop',
   TOPIC_AVATAR_SAY:       'avatar-say',
   TOPIC_FURNITURE_MOVE:   'furniture-move',
   TOPIC_FURNITURE_PLACE:  'furniture-place',
@@ -66,6 +68,10 @@ export interface AvatarMovePayload {
   x: number;
   y: number;
   direction: number;
+}
+
+export interface AvatarStopPayload {
+  roomId: string;
 }
 
 export interface AvatarSayPayload {
@@ -127,6 +133,10 @@ export interface RemoteAvatarMovePayload {
   x: number;
   y: number;
   direction: number;
+}
+
+export interface RemoteAvatarStopPayload {
+  userId: string;
 }
 
 export interface RemoteAvatarSayPayload {
