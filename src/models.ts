@@ -123,9 +123,15 @@ export interface RoomState {
 export interface FurnitureState {
   instanceId: string;
   baseId: number;
+  /** Category folder (e.g. "jardin") — concatenated with spritePath to resolve the asset URL. */
+  spriteKey: string;
+  /** Sprite id within that category (e.g. "banc"). */
+  spritePath: string;
+  subType: string;
   x: number;
   y: number;
   orientation: number;
+  placedByUserId: string;
 }
 
 // ─── Items & Boutiques ────────────────────────────────────────────────────────
