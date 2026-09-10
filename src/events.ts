@@ -85,7 +85,8 @@ export interface FurnitureMovePayload {
 }
 
 export interface FurniturePlacePayload {
-  baseId: number;
+  /** Which owned inventory item to place — not the catalog item id (see FurnitureState.baseId). */
+  userItemId: number;
   x: number;
   y: number;
   orientation: number;
@@ -150,9 +151,8 @@ export interface RemoteFurnitureMovePayload {
   y: number;
 }
 
-export interface RemoteFurniturePlacePayload extends FurnitureState {
-  placedByUserId: string;
-}
+// placedByUserId already lives on FurnitureState — nothing to add here.
+export interface RemoteFurniturePlacePayload extends FurnitureState {}
 
 export interface RemoteFurnitureRemovePayload {
   instanceId: string;
