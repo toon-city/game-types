@@ -108,7 +108,7 @@ export interface ChatMessagePayload {
 // ─── Server → Client payloads ─────────────────────────────────────────────────
 
 export interface RoomErrorPayload {
-  code: 'NOT_FOUND' | 'FORBIDDEN' | 'FULL' | 'INVALID_TOKEN' | 'INTERNAL';
+  code: 'NOT_FOUND' | 'FORBIDDEN' | 'FULL' | 'INVALID_TOKEN' | 'INTERNAL' | 'FURNITURE_ACTION_FAILED';
   message: string;
 }
 
