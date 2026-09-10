@@ -198,6 +198,20 @@ export interface MairieStatus {
   receivedProposals: MarriageProposalInfo[];
 }
 
+/** One half of the home page "just married" panel — enough to render their avatar. */
+export interface Spouse {
+  username: string;
+  gender: string | null;
+  skinColor: number | null;
+  clothing: Record<string, string>;
+}
+
+export interface JustMarried {
+  spouse1: Spouse;
+  spouse2: Spouse;
+  marriedAt: string;
+}
+
 /** A single chat message */
 export interface ChatMessage {
   id: string;
