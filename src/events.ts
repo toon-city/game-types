@@ -25,6 +25,9 @@ export const StompDest = {
   FURNITURE_REMOVE:  '/app/furniture/remove',
   FURNITURE_ROTATE:  '/app/furniture/rotate',
   CHAT_MESSAGE:      '/app/chat',
+  ROOM_KICK:         '/app/room/kick',
+  ROOM_BAN:          '/app/room/ban',
+  CHAT_PRIVATE:      '/app/chat/private',
 
   // ── Server → Client: per-room topic suffix (use roomTopic()) ───────────────
   TOPIC_JOINED:           'joined',
@@ -43,6 +46,7 @@ export const StompDest = {
   QUEUE_STATE:  '/user/queue/state',
   QUEUE_ERROR:  '/user/queue/error',
   QUEUE_KICKED: '/user/queue/kicked',
+  QUEUE_PRIVATE_MESSAGE: '/user/queue/private-message',
 } as const;
 
 export type StompDestName = typeof StompDest[keyof typeof StompDest];
@@ -105,10 +109,26 @@ export interface ChatMessagePayload {
   text: string;
 }
 
+export interface RoomKickPayload {
+  targetUserId: string;
+}
+
+export interface RoomBanPayload {
+  targetUserId: string;
+  /** Optional — the room-ban UI has no reason field, unlike the site-ban one. */
+  reason?: string;
+}
+
+export interface PrivateMessagePayload {
+  toUserId: string;
+  text: string;
+}
+
 // ─── Server → Client payloads ─────────────────────────────────────────────────
 
 export interface RoomErrorPayload {
-  code: 'NOT_FOUND' | 'FORBIDDEN' | 'FULL' | 'INVALID_TOKEN' | 'INTERNAL' | 'FURNITURE_ACTION_FAILED';
+  code: 'NOT_FOUND' | 'FORBIDDEN' | 'FULL' | 'INVALID_TOKEN' | 'INTERNAL' | 'FURNITURE_ACTION_FAILED'
+      | 'ROOM_BANNED' | 'MODERATION_ACTION_FAILED';
   message: string;
 }
 
@@ -169,4 +189,22 @@ export interface AvatarAppearancePayload {
   userId: string;
   skinColor: number;
   clothing: Record<string, string>;
+}
+
+export interface RemotePrivateMessagePayload {
+  fromUserId: string;
+  fromUsername: string;
+  toUserId: string;
+  text: string;
+  sentAt: string;
+}
+
+/**
+ * code distinguishes why the client should react differently:
+ * DUPLICATE_SESSION / ROOM_KICKED / ROOM_BANNED → back to the lobby.
+ * SITE_BANNED → full logout, the JWT is no longer honoured going forward.
+ */
+export interface KickedPayload {
+  code: 'DUPLICATE_SESSION' | 'ROOM_KICKED' | 'ROOM_BANNED' | 'SITE_BANNED';
+  message: string;
 }
