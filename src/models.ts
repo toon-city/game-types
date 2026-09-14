@@ -196,6 +196,10 @@ export interface MarriageProposalInfo {
 export interface MairieStatus {
   /** null if not married. */
   marriedToUsername: string | null;
+  /** null if not married. */
+  marriedAt: string | null;
+  /** null if not married — enough to render the spouse's avatar. */
+  spouse: Spouse | null;
   sentProposals: MarriageProposalInfo[];
   receivedProposals: MarriageProposalInfo[];
 }
