@@ -141,7 +141,7 @@ export type ItemSubType =
   | 'FLOOR' | 'WALL' | 'WALLPAPER' | 'PIECE'
   | 'HAIRSTYLE' | 'HAT' | 'TOP' | 'BOTTOM' | 'MAKEUP'
   | 'RING' | 'OTHER';
-export type ShopIdType = 'COUPE_TIFF' | 'IKEBO' | 'VESTIS';
+export type ShopIdType = 'COUPE_TIFF' | 'IKEBO' | 'VESTIS' | 'BIJOUTERIE';
 export type BuyOption = 'PEZ' | 'KREDS';
 
 export interface ItemInfo {
@@ -189,6 +189,8 @@ export interface MarriageProposalInfo {
   otherUserId: string;
   otherUsername: string;
   createdAt: string;
+  ringName: string;
+  ringDisplayImage: string;
 }
 
 export interface MairieStatus {
