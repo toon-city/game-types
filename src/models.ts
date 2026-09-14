@@ -139,7 +139,8 @@ export interface FurnitureState {
 export type ItemType = 'FURNITURE' | 'CLOTHING' | 'MISC';
 export type ItemSubType =
   | 'FLOOR' | 'WALL' | 'WALLPAPER' | 'PIECE'
-  | 'HAIRSTYLE' | 'HAT' | 'TOP' | 'BOTTOM' | 'MAKEUP' | 'OTHER';
+  | 'HAIRSTYLE' | 'HAT' | 'TOP' | 'BOTTOM' | 'MAKEUP'
+  | 'RING' | 'OTHER';
 export type ShopIdType = 'COUPE_TIFF' | 'IKEBO' | 'VESTIS';
 export type BuyOption = 'PEZ' | 'KREDS';
 
@@ -180,6 +181,35 @@ export interface CollectionInfo {
   bannerImage: string | null;
   sortOrder: number;
   enabled: boolean;
+}
+
+/** One pending marriage proposal, from the viewer's perspective (sent or received). */
+export interface MarriageProposalInfo {
+  id: number;
+  otherUserId: string;
+  otherUsername: string;
+  createdAt: string;
+}
+
+export interface MairieStatus {
+  /** null if not married. */
+  marriedToUsername: string | null;
+  sentProposals: MarriageProposalInfo[];
+  receivedProposals: MarriageProposalInfo[];
+}
+
+/** One half of the home page "just married" panel — enough to render their avatar. */
+export interface Spouse {
+  username: string;
+  gender: string | null;
+  skinColor: number | null;
+  clothing: Record<string, string>;
+}
+
+export interface JustMarried {
+  spouse1: Spouse;
+  spouse2: Spouse;
+  marriedAt: string;
 }
 
 /** A single chat message */
