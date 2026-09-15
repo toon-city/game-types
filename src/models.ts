@@ -215,6 +215,9 @@ export interface FriendInfo {
   /** Enough to render a head-crop avatar — same shape as Spouse. */
   skinColor: number | null;
   clothing: Record<string, string>;
+  online: boolean;
+  /** Room they're currently in, if online and in one — for the "Rejoindre" button. */
+  currentRoomId: number | null;
 }
 
 /** One pending friend request (sent or received). */
