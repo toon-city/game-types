@@ -123,6 +123,9 @@ export interface RoomState {
 export interface FurnitureState {
   instanceId: string;
   baseId: number;
+  /** Catalogue item name — for the click-to-preview panel (outside edit mode). */
+  name: string;
+  displayImage: string | null;
   /** Category folder (e.g. "jardin") — concatenated with spritePath to resolve the asset URL. */
   spriteKey: string;
   /** Sprite id within that category (e.g. "banc"). */
