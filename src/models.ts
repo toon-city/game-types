@@ -204,6 +204,35 @@ export interface MairieStatus {
   receivedProposals: MarriageProposalInfo[];
 }
 
+/** An established friendship, from the viewer's perspective. */
+export interface FriendInfo {
+  userId: string;
+  username: string;
+  since: string;
+}
+
+/** One pending friend request (sent or received). */
+export interface FriendRequestInfo {
+  id: number;
+  otherUserId: string;
+  otherUsername: string;
+  createdAt: string;
+}
+
+/** One entry in the viewer's blacklist. */
+export interface BlockedUserInfo {
+  userId: string;
+  username: string;
+  since: string;
+}
+
+export interface FriendsStatus {
+  friends: FriendInfo[];
+  sentRequests: FriendRequestInfo[];
+  receivedRequests: FriendRequestInfo[];
+  blocked: BlockedUserInfo[];
+}
+
 /** One half of the home page "just married" panel — enough to render their avatar. */
 export interface Spouse {
   username: string;
