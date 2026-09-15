@@ -270,6 +270,10 @@ export interface UserProfile {
   id: string;
   username: string;
   gender: string | null;
+  /** 0 = joueur, 1 = modérateur, 2 = admin. */
+  rank: number;
+  /** 0 = pas tooniz, 1-3 = niveau. */
+  toonizLevel: number;
   createdAt: string;
   job: string | null;
   description: string | null;
