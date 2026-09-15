@@ -19,6 +19,28 @@ export interface UserInfo {
   pez: number;
   /** Couleur de peau (ex: 0xf7ceaf). */
   skinColor: number;
+  /** Nom du métier actuel, null si aucun. */
+  metierName: string | null;
+  /** Pezs/jour rapportés par le métier actuel, 0 si aucun. */
+  metierDailyPez: number;
+}
+
+/** Admin catalogue entry — no eligibility, see MetierOption for the player-facing view. */
+export interface Metier {
+  id: number;
+  name: string;
+  dailyPez: number;
+  /** null = pas de condition sur ce critère. 0/1/2/3 = aucun/bronze/argent/or. */
+  minToonizLevel: number | null;
+  /** null = pas de condition sur ce critère. */
+  minDaysPlayed: number | null;
+}
+
+/** One catalogue entry from the current user's point of view — used by the player-facing picker. */
+export interface MetierOption extends Metier {
+  eligible: boolean;
+  /** Human-readable reason it's blocked (French, shown as-is), null when eligible. */
+  blockReason: string | null;
 }
 
 /** A connected user inside a room */
