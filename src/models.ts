@@ -209,6 +209,9 @@ export interface FriendInfo {
   userId: string;
   username: string;
   since: string;
+  /** Enough to render a head-crop avatar — same shape as Spouse. */
+  skinColor: number | null;
+  clothing: Record<string, string>;
 }
 
 /** One pending friend request (sent or received). */
@@ -217,6 +220,8 @@ export interface FriendRequestInfo {
   otherUserId: string;
   otherUsername: string;
   createdAt: string;
+  skinColor: number | null;
+  clothing: Record<string, string>;
 }
 
 /** One entry in the viewer's blacklist. */
@@ -224,6 +229,8 @@ export interface BlockedUserInfo {
   userId: string;
   username: string;
   since: string;
+  skinColor: number | null;
+  clothing: Record<string, string>;
 }
 
 export interface FriendsStatus {
