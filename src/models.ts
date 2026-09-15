@@ -218,6 +218,31 @@ export interface JustMarried {
   marriedAt: string;
 }
 
+/** One equipped item slot on a profile — includes items with no sprite (e.g. a ring). */
+export interface EquippedItemInfo {
+  userItemId: number;
+  /** HAIRSTYLE, HAT, TOP, BOTTOM, MAKEUP, RING, ... */
+  subType: string;
+  name: string;
+  displayImage: string;
+}
+
+export interface UserProfile {
+  id: string;
+  username: string;
+  gender: string | null;
+  createdAt: string;
+  job: string | null;
+  description: string | null;
+  skinColor: number | null;
+  /** spriteKey -> spritePath, for AvatarBadgeComponent's [override]. */
+  clothing: Record<string, string>;
+  /** null if not married. */
+  marriedToUsername: string | null;
+  marriedAt: string | null;
+  equippedItems: EquippedItemInfo[];
+}
+
 /** A single chat message */
 export interface ChatMessage {
   id: string;
