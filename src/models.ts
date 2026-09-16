@@ -188,6 +188,36 @@ export interface UserItemInfo {
   acquiredAt: string | null;
 }
 
+// ─── Centre d'échange ───────────────────────────────────────────────────────
+
+export type TradeOfferStatus = 'OPEN' | 'ACCEPTED' | 'CANCELLED';
+/** Whitelisted server-side — never an arbitrary client-chosen field. */
+export type TradeSortOption = 'newest' | 'oldest' | 'pezAsc' | 'pezDesc';
+
+export interface TradeOffer {
+  id: number;
+  offererId: string;
+  offererUsername: string;
+  /** The specific item given away, as its catalog definition (name/image) — not the UserItem instance. */
+  offeredItem: ItemInfo;
+  offeredPez: number;
+  /** The item TYPE requested in return — any unequipped copy qualifies at accept time. */
+  requestedItem: ItemInfo;
+  requestedPez: number;
+  status: TradeOfferStatus;
+  createdAt: string;
+  /** Null unless ACCEPTED. */
+  acceptedByUsername: string | null;
+  resolvedAt: string | null;
+}
+
+export interface CreateTradeOfferRequest {
+  offeredUserItemId: number;
+  offeredPez: number;
+  requestedItemId: number;
+  requestedPez: number;
+}
+
 export interface ShopItemInfo {
   id: number;
   item: ItemInfo;
