@@ -309,6 +309,10 @@ export interface UserProfile {
   marriedToUsername: string | null;
   marriedAt: string | null;
   equippedItems: EquippedItemInfo[];
+  /** When true, the frontend hides the slots grid — clothing already reflects the work outfit overlay. */
+  workOutfitActive: boolean;
+  /** Null unless the user has a métier — lets the profile offer the toggle at all. */
+  metierName: string | null;
 }
 
 /** A single chat message */
