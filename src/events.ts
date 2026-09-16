@@ -1,5 +1,5 @@
 import { Point } from './common';
-import { FurnitureState, RoomState, ChatMessage } from './models';
+import { FurnitureState, TextureState, RoomState, ChatMessage, ZoneType } from './models';
 import { RoomPermission } from './permissions';
 
 // ─── STOMP destinations ───────────────────────────────────────────────────────
@@ -24,6 +24,8 @@ export const StompDest = {
   FURNITURE_PLACE:   '/app/furniture/place',
   FURNITURE_REMOVE:  '/app/furniture/remove',
   FURNITURE_ROTATE:  '/app/furniture/rotate',
+  TEXTURE_APPLY:     '/app/texture/apply',
+  TEXTURE_REMOVE:    '/app/texture/remove',
   CHAT_MESSAGE:      '/app/chat',
   ROOM_KICK:         '/app/room/kick',
   ROOM_BAN:          '/app/room/ban',
@@ -39,6 +41,8 @@ export const StompDest = {
   TOPIC_FURNITURE_PLACE:  'furniture-place',
   TOPIC_FURNITURE_REMOVE: 'furniture-remove',
   TOPIC_FURNITURE_ROTATE: 'furniture-rotate',
+  TOPIC_TEXTURE_APPLY:    'texture-apply',
+  TOPIC_TEXTURE_REMOVE:   'texture-remove',
   TOPIC_CHAT:             'chat',
   TOPIC_AVATAR_APPEARANCE: 'avatar-appearance',
 
@@ -105,6 +109,18 @@ export interface FurnitureRotatePayload {
   orientation: number;
 }
 
+export interface TextureApplyPayload {
+  /** Which owned inventory item to apply — not the catalog item id (see TextureState.baseId). */
+  userItemId: number;
+  zoneType: ZoneType;
+  zoneIndex: number;
+}
+
+export interface TextureRemovePayload {
+  zoneType: ZoneType;
+  zoneIndex: number;
+}
+
 export interface ChatMessagePayload {
   text: string;
 }
@@ -128,7 +144,7 @@ export interface PrivateMessagePayload {
 
 export interface RoomErrorPayload {
   code: 'NOT_FOUND' | 'FORBIDDEN' | 'FULL' | 'INVALID_TOKEN' | 'INTERNAL' | 'FURNITURE_ACTION_FAILED'
-      | 'ROOM_BANNED' | 'MODERATION_ACTION_FAILED';
+      | 'ROOM_BANNED' | 'MODERATION_ACTION_FAILED' | 'TEXTURE_ACTION_FAILED';
   message: string;
 }
 
@@ -181,6 +197,14 @@ export interface RemoteFurnitureRemovePayload {
 export interface RemoteFurnitureRotatePayload {
   instanceId: string;
   orientation: number;
+}
+
+// appliedByUserId already lives on TextureState — nothing to add here.
+export interface RemoteTextureApplyPayload extends TextureState {}
+
+export interface RemoteTextureRemovePayload {
+  zoneType: ZoneType;
+  zoneIndex: number;
 }
 
 export interface RemoteChatMessagePayload extends ChatMessage {}

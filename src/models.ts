@@ -136,6 +136,7 @@ export interface RoomState {
   name: string;
   houseData: string;
   furnitures: FurnitureState[];
+  textures: TextureState[];
   users: RoomUser[];
   /** Permission granted to the joining user */
   yourPermission: import('./permissions').RoomPermission;
@@ -157,6 +158,27 @@ export interface FurnitureState {
   y: number;
   orientation: number;
   placedByUserId: string;
+}
+
+/** "WALL" or "FLOOR" — which kind of room zone a wallpaper/flooring item targets. */
+export type ZoneType = 'WALL' | 'FLOOR';
+
+/** A wallpaper/floor texture currently applied to one of the room's own zones
+ *  (an index into house_data's walls[]/floors[], matching zoneType) — at most
+ *  one per zone, see game-server-java's idx_user_items_room_zone. */
+export interface TextureState {
+  instanceId: string;
+  baseId: number;
+  name: string;
+  displayImage: string | null;
+  /** Unlike FurnitureState's spriteKey, not used to resolve the asset URL —
+   *  a texture's image is a flat file at textures/{walls|floors}/{spritePath}
+   *  (see GameCore.applyTexture). Carried along for parity/display only. */
+  spriteKey: string;
+  spritePath: string;
+  zoneType: ZoneType;
+  zoneIndex: number;
+  appliedByUserId: string;
 }
 
 // ─── Items & Boutiques ────────────────────────────────────────────────────────
