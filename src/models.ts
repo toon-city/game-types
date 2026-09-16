@@ -17,7 +17,7 @@ export interface UserInfo {
   kreds: number;
   /** Monnaie gratuite (jeu) — défaut 1500 */
   pez: number;
-  /** Couleur de peau (ex: 0xf7ceaf). */
+  /** Couleur de peau (ex: 0xffffff). */
   skinColor: number;
   /** Nom du métier actuel, null si aucun. */
   metierName: string | null;
@@ -47,7 +47,7 @@ export interface MetierOption extends Metier {
 export interface RoomUser {
   userId: string;
   username: string;
-  /** Couleur de peau (ex: 0xf7ceaf). */
+  /** Couleur de peau (ex: 0xffffff). */
   skinColor: number;
   /** Vêtements équipés : spriteKey → spritePath (ex: { hair: "hair7" }). */
   clothing: Record<string, string>;
