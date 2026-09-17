@@ -154,6 +154,11 @@ export interface FurnitureState {
   /** Sprite id within that category (e.g. "banc"). */
   spritePath: string;
   subType: string;
+  /** Old game's STYPE (18 = blocking furniture, 19 = wall-mounted decor,
+   *  20 = floor decal) — game-core's collision/depth-sort only treats 18 as
+   *  a real obstacle with avatar-priority depth; passed straight through to
+   *  GameCore.spawnFurniture's `type` param. */
+  type: number;
   x: number;
   y: number;
   orientation: number;
