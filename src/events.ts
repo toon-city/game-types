@@ -19,6 +19,7 @@ export const StompDest = {
   AVATAR_MOVE:       '/app/avatar/move',
   AVATAR_STOP:       '/app/avatar/stop',
   AVATAR_SAY:        '/app/avatar/say',
+  AVATAR_EMOTE:      '/app/avatar/emote',
   CLOTHING_REFRESH:  '/app/avatar/clothing/refresh',
   FURNITURE_MOVE:    '/app/furniture/move',
   FURNITURE_PLACE:   '/app/furniture/place',
@@ -37,6 +38,7 @@ export const StompDest = {
   TOPIC_AVATAR_MOVE:      'avatar-move',
   TOPIC_AVATAR_STOP:      'avatar-stop',
   TOPIC_AVATAR_SAY:       'avatar-say',
+  TOPIC_AVATAR_EMOTE:     'avatar-emote',
   TOPIC_FURNITURE_MOVE:   'furniture-move',
   TOPIC_FURNITURE_PLACE:  'furniture-place',
   TOPIC_FURNITURE_REMOVE: 'furniture-remove',
@@ -84,6 +86,18 @@ export interface AvatarStopPayload {
 
 export interface AvatarSayPayload {
   text: string;
+}
+
+/** SMILE carries `value` = emoji frame (1-12, matching assets/images/emojis/N.png,
+ *  the 12-frame set recovered from the original game's smile.pense(frame) call).
+ *  LOVE/ZZZ carry no value — same "self-expression, no target" semantics the
+ *  original had (clicking send just broadcasts, the receiving client plays the
+ *  animation over the SENDER's own avatar). */
+export type EmoteKind = 'SMILE' | 'LOVE' | 'ZZZ';
+
+export interface AvatarEmotePayload {
+  kind: EmoteKind;
+  value?: number;
 }
 
 export interface FurnitureMovePayload {
@@ -179,6 +193,12 @@ export interface RemoteAvatarStopPayload {
 export interface RemoteAvatarSayPayload {
   userId: string;
   text: string;
+}
+
+export interface RemoteAvatarEmotePayload {
+  userId: string;
+  kind: EmoteKind;
+  value?: number;
 }
 
 export interface RemoteFurnitureMovePayload {
