@@ -166,6 +166,7 @@ export interface UserJoinedPayload {
   userId: string;
   username: string;
   skinColor: number;
+  hairColor: number;
   clothing: Record<string, string>;
   x: number;
   y: number;
@@ -232,6 +233,7 @@ export interface RemoteChatMessagePayload extends ChatMessage {}
 export interface AvatarAppearancePayload {
   userId: string;
   skinColor: number;
+  hairColor: number;
   clothing: Record<string, string>;
 }
 

@@ -19,6 +19,7 @@ export interface UserInfo {
   pez: number;
   /** Couleur de peau (ex: 0xffffff). */
   skinColor: number;
+  hairColor: number;
   /** Nom du métier actuel, null si aucun. */
   metierName: string | null;
   /** Pezs/jour rapportés par le métier actuel, 0 si aucun. */
@@ -49,6 +50,7 @@ export interface RoomUser {
   username: string;
   /** Couleur de peau (ex: 0xffffff). */
   skinColor: number;
+  hairColor: number;
   /** Vêtements équipés : spriteKey → spritePath (ex: { hair: "hair7" }). */
   clothing: Record<string, string>;
   x: number;
@@ -293,6 +295,7 @@ export interface FriendInfo {
   since: string;
   /** Enough to render a head-crop avatar — same shape as Spouse. */
   skinColor: number | null;
+  hairColor: number | null;
   clothing: Record<string, string>;
   online: boolean;
   /** Room they're currently in, if online and in one — for the "Rejoindre" button. */
@@ -306,6 +309,7 @@ export interface FriendRequestInfo {
   otherUsername: string;
   createdAt: string;
   skinColor: number | null;
+  hairColor: number | null;
   clothing: Record<string, string>;
 }
 
@@ -315,6 +319,7 @@ export interface BlockedUserInfo {
   username: string;
   since: string;
   skinColor: number | null;
+  hairColor: number | null;
   clothing: Record<string, string>;
 }
 
@@ -330,6 +335,7 @@ export interface Spouse {
   username: string;
   gender: string | null;
   skinColor: number | null;
+  hairColor: number | null;
   clothing: Record<string, string>;
 }
 
@@ -360,6 +366,7 @@ export interface UserProfile {
   job: string | null;
   description: string | null;
   skinColor: number | null;
+  hairColor: number | null;
   /** spriteKey -> spritePath, for AvatarBadgeComponent's [override]. */
   clothing: Record<string, string>;
   /** null if not married. */
